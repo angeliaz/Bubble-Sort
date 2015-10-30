@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bubble-Sort</title>
+</head>
+<body>
+    <div class="wrap">
+        count: <input id="count" type="text" value="10">
+        max: <input id="max" type="text" value="100">
+        <input id="sort" type="button" value="sort">
+        <p id="randomArr"></p>
+        <p id="sorted"></p>
+        <p id="cost"></p>
+    </div>
+    <script>
+        (function (win, doc) {
+
+            function $(id) {
+                return doc.getElementById(id);
+            } 
+
+            function getRandomArr(count, max) {
+                var i = 0, arr = [];
+                for (; i < count; i++) {
+                    arr.push(Math.floor(Math.random() * max));
+                }
+                return arr;
+            } 
+
+            function swap(arr, m, n) {
+                var tmp = arr[m];
+                arr[m] = arr[n];
+                arr[n] = tmp;
+            }
+
+            function bubbleSort(arr) {
+                var len = arr.length;
+                for (var i = 0; i < arr.length; i++) {
+
+                    for (var j = 0; j < (len - i - 1); j++) {
+                        if (arr[j] > arr[j + 1]) {
+                            swap(arr, j, (j + 1));
+                        }
+                    }
+
+                }
+                return arr;
+            }
+
+            function start() {
+
+                var randomArr = getRandomArr($('count').value, $('max').value);
+                $('randomArr').innerHTML = randomArr;
+                var t1 = performance.now();
+                var sortedArr = bubbleSort(randomArr);
+                var t2 = performance.now();
+                $('sorted').innerHTML = sortedArr;
+                $('cost').innerHTML = t2 - t1;
+
+            }
+
+            $('sort').onclick = function () {
+                start();
+            }
+
+        })(window, document);
+    </script>
+</body>
+</html>
